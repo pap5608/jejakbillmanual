@@ -72,7 +72,7 @@
         <div class="flex items-center gap-1.5">
           <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
             <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-            v1.0.4
+            v1.0.5
           </span>
           <button id="manualRefreshBtn" title="최신 규정 새로고침" class="p-1 rounded-full text-slate-400 hover:text-blue-900 active:rotate-180 transition-transform">
             <i class="ph-bold ph-arrows-clockwise text-sm"></i>
@@ -159,9 +159,15 @@
 
         <div class="flex items-start gap-2 bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
           <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">✓</span>
-          <div>
-            <strong class="text-white">법인카드 우선 원칙</strong>
-            <p class="text-[11px] text-slate-300 mt-0.5 leading-snug">카드 결제 시 법인카드 사용이 원칙. 부득이한 사유로 불가한 경우에 한해 <span class="text-amber-300 font-semibold">[사유서 작성]</span> 시 개인카드 사용 가능</p>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1.5 flex-wrap">
+              <strong class="text-white">법인카드 우선 원칙</strong>
+              <a href="개인신용카드%20사용%20사유서.hwp" download="개인신용카드 사용 사유서.hwp" class="inline-flex items-center gap-1 bg-amber-400 hover:bg-amber-300 active:scale-95 text-slate-900 font-bold text-[11px] px-2.5 py-1 rounded-lg shadow transition shrink-0">
+                <i class="ph-bold ph-download-simple"></i>
+                <span>사유서 다운로드</span>
+              </a>
+            </div>
+            <p class="text-[11px] text-slate-300 mt-1 leading-snug">카드 결제 시 법인카드 사용이 원칙. 부득이한 사유로 불가한 경우에 한해 <span class="text-amber-300 font-semibold">[사유서 작성]</span> 시 개인카드 사용 가능</p>
           </div>
         </div>
 
@@ -280,7 +286,12 @@
             <div class="font-bold flex items-center gap-1">
               <i class="ph-bold ph-check-circle text-blue-700"></i> 필요 증빙 서류
             </div>
-            <p class="text-xs font-semibold">• <strong>신용카드 매출전표</strong> (법인카드 우선, 불가 시 개인카드+사유서)</p>
+            <div class="flex items-center justify-between gap-1 flex-wrap">
+              <p class="text-xs font-semibold">• <strong>신용카드 매출전표</strong> (법인카드 우선, 불가 시 개인카드+사유서)</p>
+              <a href="개인신용카드%20사용%20사유서.hwp" download="개인신용카드 사용 사유서.hwp" class="inline-flex items-center gap-1 bg-blue-100 hover:bg-blue-200 active:scale-95 text-blue-900 font-bold text-[10px] px-2 py-0.5 rounded shadow-xs transition">
+                <i class="ph-bold ph-download-simple"></i> 사유서 서식
+              </a>
+            </div>
             <p class="text-xs font-semibold">• <strong>현금영수증</strong> (지출증빙용 필수)</p>
           </div>
           <p class="text-[11px] text-slate-500">※ 온라인몰(쿠팡 등) 구매 시 품목 내역이 확인되는 상세 주문내역서를 함께 구비해야 합니다.</p>
@@ -947,7 +958,7 @@
     }
 
     // 9. 브라우저 캐시 무시 & 실시간 버전 자동 감지
-    const CURRENT_VERSION = '1.0.4';
+    const CURRENT_VERSION = '1.0.5';
     const updateBanner = document.getElementById('updateBanner');
     const applyUpdateBtn = document.getElementById('applyUpdateBtn');
     const manualRefreshBtn = document.getElementById('manualRefreshBtn');
