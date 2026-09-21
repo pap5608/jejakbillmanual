@@ -72,7 +72,7 @@
         <div class="flex items-center gap-1.5">
           <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
             <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-            v1.0.6
+            v1.0.7
           </span>
           <button id="manualRefreshBtn" title="최신 규정 새로고침" class="p-1 rounded-full text-slate-400 hover:text-blue-900 active:rotate-180 transition-transform">
             <i class="ph-bold ph-arrows-clockwise text-sm"></i>
@@ -220,7 +220,7 @@
             <i class="ph-fill ph-star text-xl"></i>
           </div>
           <h3 class="text-sm font-bold text-slate-900">출연료</h3>
-          <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">연예인, 일반인(12.5만원)</p>
+          <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">연예인, 일반인(원천징수)</p>
         </button>
 
         <!-- 대분류 3: 개인에게 지급하는 상품 -->
@@ -228,8 +228,8 @@
           <div class="w-9 h-9 rounded-xl bg-pink-100 text-pink-800 flex items-center justify-center mb-2">
             <i class="ph-fill ph-gift text-xl"></i>
           </div>
-          <h3 class="text-sm font-bold text-slate-900">상품·상금·쿠폰</h3>
-          <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">물품, 상금, 기프티콘</p>
+          <h3 class="text-sm font-bold text-slate-900">개인 지급 상품</h3>
+          <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">물품, 상금, 기프티콘, 12.5만원</p>
         </button>
 
         <!-- 대분류 4: 해외 출장 -->
@@ -396,15 +396,15 @@
       <!-- ================= 출연료 ================= -->
 
       <!-- 연예인 출연료 -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 연예인 배우 가수 게스트 소속사 세금계산서 개인 신분증사본 사업소득 원천징수">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 연예인 소속사 세금계산서 개인 신분증사본 사업소득 원천징수">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
             <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-star text-xl"></i>
             </div>
             <div>
-              <h3 class="text-sm font-bold text-slate-900">연예인 출연료 (소속사 vs 개인)</h3>
-              <p class="text-xs text-slate-500 mt-1">기획사 계약 세금계산서 / 개인 직접 계약 시</p>
+              <h3 class="text-sm font-bold text-slate-900">연예인 출연료</h3>
+              <p class="text-xs text-slate-500 mt-1">소속사(기획사) 계약 vs 개인 직접 계약</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
@@ -412,33 +412,33 @@
 
         <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
           <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
-            <div class="font-bold text-purple-900 flex items-center gap-1">
+            <div class="font-bold text-purple-900 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-purple-600"></span>
-              소속사(기획사) 계약 건
+              소속사
             </div>
-            <p class="text-[11px] text-slate-700">필요 증빙: <strong>세금계산서</strong> (사업자등록증, 통장사본 첨부)</p>
+            <p class="text-[11px] text-slate-700">필요 증빙 : <strong>세금계산서</strong></p>
           </div>
 
           <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
-            <div class="font-bold text-blue-900 flex items-center gap-1">
+            <div class="font-bold text-blue-900 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-              개인 직접 계약 건
+              개인
             </div>
-            <p class="text-[11px] text-slate-700">필요 증빙: <strong>신분증 사본</strong> (사업소득 원천징수 3.3% 대상, 통장사본)</p>
+            <p class="text-[11px] text-slate-700">필요 증빙 : <strong>신분증 사본(사업소득 원천징수)</strong></p>
           </div>
         </div>
       </article>
 
       <!-- 일반인 출연료 -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 일반인 방청객 사연자 인터뷰 125,000 125000 12만5천원 이상 미만 신분증사본 기본정보 이름 휴대폰번호 기타소득">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 일반인 방청객 사연자 인터뷰 신분증사본 기타소득 원천징수">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
             <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-users text-xl"></i>
             </div>
             <div>
-              <h3 class="text-sm font-bold text-slate-900">일반인 출연료 (방청객·사연자 등)</h3>
-              <p class="text-xs text-slate-500 mt-1">125,000원 기준 원천징수 대상 여부 및 서류 구분</p>
+              <h3 class="text-sm font-bold text-slate-900">일반인 출연료</h3>
+              <p class="text-xs text-slate-500 mt-1">일반 출연자, 방청객, 인터뷰 등</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
@@ -446,43 +446,28 @@
 
         <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
           <div class="bg-indigo-50/80 p-3 rounded-xl border border-indigo-200 space-y-1">
-            <div class="font-bold text-indigo-950 flex items-center gap-1">
+            <div class="font-bold text-indigo-950 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-indigo-700"></span>
-              일반인 125,000원 이상 (필수 원천징수)
+              일반인
             </div>
-            <p class="text-[11px] text-slate-700 leading-snug">
-              필요 증빙: <strong>신분증 사본 필수</strong><br>
-              (기타소득 원천징수 대상이므로 신분증 사본을 반드시 수취해야 합니다)
+            <p class="text-[11px] text-slate-700">
+              필요 증빙 : <strong>신분증 사본(기타소득 원천징수)</strong>
             </p>
-          </div>
-
-          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-              일반인 125,000원 미만 (과세최저한)
-            </div>
-            <div class="text-[11px] text-slate-700 space-y-1">
-              <p>• <strong>가능하면 신분증 사본</strong> (기타소득 원천징수) 수취 권장</p>
-              <p>• <strong>불가능할 경우:</strong> <strong>기본 정보 (이름, 휴대폰번호)</strong> 정도 구비</p>
-              <p class="text-[10px] text-slate-500 bg-slate-50 p-2 rounded border border-slate-200">
-                💡 125,000원 미만 건은 세법상 필수 원천징수 대상이 아니므로, 신분증 수취가 어려울 시 기본 정보로 갈음 가능합니다.
-              </p>
-            </div>
           </div>
         </div>
       </article>
 
       <!-- ================= 개인에게 지급하는 상품 ================= -->
 
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="prize" data-keywords="상품 상금 기프티콘 상품권 개인 상품권수불부 유가증권 불특정다수 특정다수 심야괴담회 신분증사본 접대비">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="prize" data-keywords="상품 상금 기프티콘 상품권 개인 물품 가액 125000 125,000 신분증사본 기타소득 원천징수 이벤트약관 수집동의">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
             <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-gift text-xl"></i>
             </div>
             <div>
-              <h3 class="text-sm font-bold text-slate-900">개인 지급 상품·상금·기프티콘</h3>
-              <p class="text-xs text-slate-500 mt-1">심야괴담회 등 공모전 상금, 물품, 모바일 쿠폰</p>
+              <h3 class="text-sm font-bold text-slate-900">개인에게 지급하는 상품</h3>
+              <p class="text-xs text-slate-500 mt-1">물품, 상금, 기프티콘(상품권), 125,000원 기준</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
@@ -493,40 +478,51 @@
           <div class="bg-red-50 p-3 rounded-xl border border-red-200 text-[11px] text-red-950 space-y-1.5 shadow-sm">
             <div class="flex items-center gap-1.5 font-bold text-red-800 text-xs">
               <i class="ph-bold ph-shield-warning text-base"></i>
-              <span>경품 지급 시 필수 시스템 통제 (선행 필수)</span>
+              <span>경품 지급 시 필수 선행 통제</span>
             </div>
             <p class="leading-relaxed">
-              경품 지급 시 이벤트 응모 약관에 <strong class="text-red-900 underline">"경품 발송 및 제세공과금 처리를 위한 개인정보(주민등록번호) 수집 동의"</strong>를 필수 항목으로 넣어야 하며, <strong>인적사항 제공을 거부할 경우 당첨을 취소하는 시스템 통제가 선행</strong>되어야 합니다.
+              경품 지급 시 이벤트 응모 약관에 <strong>"경품 발송 및 제세공과금 처리를 위한 개인정보(주민등록번호) 수집 동의"</strong>를 필수 항목으로 넣어야 하며, <strong>인적사항 제공을 거부할 경우 당첨을 취소하는 시스템 통제가 선행되어야 함</strong>
             </p>
           </div>
 
-          <!-- 물품 지급 -->
-          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
-            <div class="font-bold text-slate-900 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-pink-500"></span>
-              물품 지급
+          <!-- 가액 125,000원 미만 기준 -->
+          <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-[11px] text-amber-950 space-y-1 shadow-xs">
+            <div class="font-bold text-amber-900 flex items-center gap-1.5">
+              <i class="ph-bold ph-info"></i>
+              <span>가액 125,000원 미만</span>
             </div>
-            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙:</strong> <strong>신분증 사본</strong> (물품 가액만큼 기타소득 원천징수)</p>
-            <p class="text-[11px] text-slate-700">• <strong>물품 구매 시:</strong> 세금계산서, 카드 결제, 현금영수증</p>
+            <p class="leading-relaxed">
+              : <strong>가능하면 신분증 사본(기타소득 원천징수)</strong>, 불가능할 경우 <strong>기본 정보(이름, 휴대폰번호)</strong> 정도 구비
+            </p>
           </div>
 
-          <!-- 상금 지급 -->
+          <!-- 3-1. 물품 -->
           <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
             <div class="font-bold text-slate-900 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-pink-500"></span>
-              상금 지급 (현금/계좌이체)
+              물품
             </div>
-            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙:</strong> <strong>신분증 사본</strong> (기타소득 원천징수)</p>
+            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙 :</strong> <strong>신분증 사본(물품 가액만큼 기타소득 원천징수)</strong></p>
+            <p class="text-[11px] text-slate-700">• <strong>물품 구매 :</strong> <strong>세금계산서</strong>, <strong>카드 결제</strong>, <strong>현금영수증</strong></p>
           </div>
 
-          <!-- 기프티콘 (상품권) -->
+          <!-- 3-2. 상금 -->
           <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
             <div class="font-bold text-slate-900 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-pink-500"></span>
-              기프티콘 (상품권)
+              상금
             </div>
-            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙:</strong> <strong>신분증 사본</strong> (물품 가액만큼 기타소득 원천징수)</p>
-            <p class="text-[11px] text-slate-700">• <strong>구매 시:</strong> 세금계산서, 카드 결제, 현금영수증</p>
+            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙 :</strong> <strong>신분증 사본(기타소득 원천징수)</strong></p>
+          </div>
+
+          <!-- 3-3. 기프티콘(상품권) -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <div class="font-bold text-slate-900 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+              기프티콘(상품권)
+            </div>
+            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙 :</strong> <strong>신분증 사본(물품 가액만큼 기타소득 원천징수)</strong></p>
+            <p class="text-[11px] text-slate-700">• <strong>구매 :</strong> <strong>세금계산서</strong>, <strong>카드 결제</strong>, <strong>현금영수증</strong></p>
           </div>
         </div>
       </article>
@@ -1019,7 +1015,7 @@
     }
 
     // 9. 브라우저 캐시 무시 & 실시간 버전 자동 감지
-    const CURRENT_VERSION = '1.0.6';
+    const CURRENT_VERSION = '1.0.7';
     const updateBanner = document.getElementById('updateBanner');
     const applyUpdateBtn = document.getElementById('applyUpdateBtn');
     const manualRefreshBtn = document.getElementById('manualRefreshBtn');
