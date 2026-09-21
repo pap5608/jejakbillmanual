@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>제작진 모바일 전표처리 가이드</title>
+
+  <!-- Pretendard Font -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Phosphor Icons (경량 고화질 모바일 아이콘) -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <style>
+    body {
+      font-family: 'Pretendard', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      padding-bottom: env(safe-area-inset-bottom, 80px);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .active-chip {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+      font-weight: 600;
+    }
+    .active-nav {
+      color: #2563eb !important;
+      font-weight: 700;
+    }
+    .badge-alert {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    .badge-success {
+      background-color: #dcfce7;
+      color: #15803d;
+    }
+    .badge-info {
+      background-color: #e0f2fe;
+      color: #0369a1;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- [상단 고정 헤더] -->
+  <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-md mx-auto px-4 pt-3 pb-2.5">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-sm">
+            <i class="ph-bold ph-receipt text-lg"></i>
+          </div>
+          <div>
+            <h1 class="text-base font-bold text-slate-900 tracking-tight leading-tight">제작진 전표 매뉴얼</h1>
+            <p class="text-[11px] text-slate-500">현장 영수증 & 정산 기준 한눈에 보기</p>
+          </div>
+        </div>
+        <span class="inline-flex items-center gap-1 text-[11px] font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100">
+          <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
+          2026 최신규정
+        </span>
+      </div>
+
+      <!-- 실시간 검색바 -->
+      <div class="relative mt-2">
+        <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          placeholder="항목 검색 (예: 택시, 식대, 야근, 세금계산서, 분실)"
+          class="w-full bg-slate-100 text-sm text-slate-800 placeholder-slate-400 pl-9 pr-9 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+          <i class="ph ph-x-circle text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 카테고리 필터 칩 (가로 스크롤) -->
+    <div class="max-w-md mx-auto px-4 py-2 overflow-x-auto hide-scrollbar flex items-center gap-2 border-t border-slate-100 bg-white">
+      <button class="filter-chip active-chip px-3 py-1.5 rounded-full text-xs text-slate-600 bg-slate-100 whitespace-nowrap transition" data-category="all">
+        전체 보기
+      </button>
+      <button class="filter-chip px-3 py-1.5 rounded-full text-xs text-slate-600 bg-slate-100 whitespace-nowrap transition" data-category="meal">
+        🍱 식대/간식
+      </button>
+      <button class="filter-chip px-3 py-1.5 rounded-full text-xs text-slate-600 bg-slate-100 whitespace-nowrap transition" data-category="traffic">
+        🚕 교통/택시/유류
+      </button>
+      <button class="filter-chip px-3 py-1.5 rounded-full text-xs text-slate-600 bg-slate-100 whitespace-nowrap transition" data-category="supplies">
+        🎬 소품/비품/대관
+      </button>
+      <button class="filter-chip px-3 py-1.5 rounded-full text-xs text-slate-600 bg-slate-100 whitespace-nowrap transition" data-category="evidence">
+        🧾 증빙규정/세금
+      </button>
+      <button class="filter-chip px-3 py-1.5 rounded-full text-xs text-slate-600 bg-slate-100 whitespace-nowrap transition" data-category="faq">
+        ❓ 자주 묻는 질문
+      </button>
+    </div>
+  </header>
+
+  <!-- [본문 컨테이너] -->
+  <main class="max-w-md mx-auto px-4 py-3 space-y-4">
+
+    <!-- 1. 중요 마감 공지 배너 -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-4 text-white shadow-sm flex items-start gap-3">
+      <div class="p-2 bg-white/10 rounded-xl backdrop-blur-md">
+        <i class="ph-bold ph-calendar-check text-xl"></i>
+      </div>
+      <div class="flex-1">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold tracking-wide text-blue-200">정산 마감 일정 안내</span>
+          <span class="text-[10px] bg-red-500/90 text-white px-2 py-0.5 rounded-full font-bold">기한 엄수</span>
+        </div>
+        <p class="text-sm font-bold mt-0.5">매월 25일 18:00 전표 마감</p>
+        <p class="text-xs text-blue-100 mt-1 leading-snug">
+          기한 경과 시 익월 처리되거나 불인정될 수 있으니 영수증은 발생 즉시 촬영해 두세요!
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. 전표 처리 3단계 퀵 프로세스 요약 -->
+    <section class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm" id="quickGuideSection">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+          <i class="ph-fill ph-lightning text-amber-500"></i> 전표 처리 3단계 요약
+        </h2>
+        <span class="text-[11px] text-slate-400">초간단 가이드</span>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-center">
+        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center mx-auto mb-1.5">1</div>
+          <div class="text-xs font-bold text-slate-800">영수증 챙기기</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">카드전표/현금영수증 촬영</div>
+        </div>
+        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center mx-auto mb-1.5">2</div>
+          <div class="text-xs font-bold text-slate-800">계정과목 확인</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">식대/교통/소품 항목 분류</div>
+        </div>
+        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-600 font-bold text-xs flex items-center justify-center mx-auto mb-1.5">3</div>
+          <div class="text-xs font-bold text-slate-800">전표 입력/상신</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">사용목적/인원 필수 기재</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 검색 결과 없을 때 표시되는 박스 -->
+    <div id="noResults" class="hidden text-center py-12">
+      <i class="ph ph-magnifying-glass text-4xl text-slate-300 mb-2"></i>
+      <p class="text-sm font-medium text-slate-600">검색 결과가 없습니다.</p>
+      <p class="text-xs text-slate-400 mt-1">다른 검색어를 입력하거나 카테고리를 확인해주세요.</p>
+    </div>
+
+    <!-- 3. 상세 항목 카드 리스트 -->
+    <div id="itemsContainer" class="space-y-3">
+
+      <!-- ITEM: 식대/음료 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="meal" data-keywords="식대 밥값 식사 카페 커피 야근식대 제작식대 회식 배달의민족 요기요">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-fork-knife text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">제작 현장 식대 및 음료비</h3>
+                <span class="text-[10px] font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-md border border-orange-100">식대/간식</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">촬영·제작 식대(인당 12,000원 기준), 카페, 야근식대</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="bg-white p-3 rounded-xl border border-slate-200/70 space-y-2">
+            <div class="flex justify-between items-center text-slate-700">
+              <span class="font-medium">일반 식대 한도</span>
+              <span class="font-bold text-slate-900">1인 1식 12,000원 이하</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-700">
+              <span class="font-medium">야근 식대 인정 조건</span>
+              <span class="font-bold text-slate-900">20:00 이후 근무 시 (1인 12,000원)</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-700">
+              <span class="font-medium">카페/음료/다과</span>
+              <span class="font-bold text-slate-900">1인 5,000원 내외</span>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="font-bold text-slate-800 flex items-center gap-1">
+              <i class="ph-bold ph-warning-circle text-amber-500"></i> 필수 작성 및 유의사항
+            </div>
+            <ul class="list-disc list-inside text-slate-600 space-y-1 pl-1">
+              <li><strong class="text-slate-800">동반자 명단 필수:</strong> 2인 이상 결제 시 적요란에 <span class="text-blue-600 font-mono">"PD OOO 외 2명"</span>과 같이 실제 참석자 전원 성명 기재.</li>
+              <li><strong class="text-red-600">주류(술) 절대 불가:</strong> 주류가 포함된 영수증은 전체 불인정되거나 주류 금액 제외 후 처리됩니다.</li>
+              <li><strong class="text-slate-800">배달앱 주문 시:</strong> 영수증(매출전표)과 주문내역서(메뉴 및 수량 확인용)를 함께 첨부해야 합니다.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- ITEM: 야근 택시비 / 교통비 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="traffic" data-keywords="택시 택시비 야근택시 교통비 카카오T 우버 대중교통 KTX srt 버스 지하철">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-taxi text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">야근 택시비 및 대중교통비</h3>
+                <span class="text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">교통/택시</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">심야 퇴근 택시비 규정 및 장거리 이동 대중교통</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="bg-white p-3 rounded-xl border border-slate-200/70 space-y-2">
+            <div class="flex justify-between items-center text-slate-700">
+              <span class="font-medium">택시 이용 가능 시간</span>
+              <span class="font-bold text-blue-600">23:00 이후 심야 퇴근 시</span>
+            </div>
+            <div class="flex justify-between items-center text-slate-700">
+              <span class="font-medium">업무상 낮 이동</span>
+              <span class="font-bold text-slate-900">장비 운반 또는 긴급 촬영 시에만 인정</span>
+            </div>
+          </div>
+
+          <div class="space-y-1.5">
+            <div class="font-bold text-slate-800 flex items-center gap-1">
+              <i class="ph-bold ph-check-circle text-blue-600"></i> 전표 적요 입력 양식 (복사해서 사용)
+            </div>
+            <div class="p-2.5 bg-slate-100 rounded-lg font-mono text-[11px] text-slate-700 select-all border border-slate-200">
+              [야근교통] OOO(이름) / 23:45 / 상암사옥 ➔ 화곡동 자택 (귀가)
+            </div>
+            <p class="text-[11px] text-slate-500">※ 카카오T / TMAP 택시 등 앱 이용 시 탑승시간, 출발지, 도착지가 표기된 <strong>상세 영수증</strong>을 캡처해야 합니다.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ITEM: 유류비 & 주차비 & 톨게이트 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="traffic" data-keywords="유류 유류비 기름값 주유 주차 주차비 하이패스 톨비 통행료 주차장 자차">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-gas-pump text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">차량 유류비 · 주차비 · 톨게이트</h3>
+                <span class="text-[10px] font-semibold text-cyan-700 bg-cyan-50 px-2 py-0.5 rounded-md border border-cyan-100">교통/유류</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">촬영 차량 주유, 하이패스 통행료, 공영/민영 주차장</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-amber-800 space-y-1">
+            <div class="font-bold flex items-center gap-1">
+              <i class="ph-bold ph-warning"></i> 자차 운행 주유비 주의사항
+            </div>
+            <p class="text-[11px]">
+              회사 렌터카/법인차량이 아닌 <strong>개인 차량(자차)</strong> 사용 시, 주유 영수증 단독 처리 대신 <strong>[출장신청서 + 거리 기반(km당 유류대 환산)]</strong> 기준이 적용될 수 있으니 사전에 회계팀과 확인하세요.
+            </p>
+          </div>
+
+          <ul class="list-disc list-inside text-slate-600 space-y-1 pl-1">
+            <li><strong>주차비:</strong> 영수증에 주차장명, 입출차 일시가 명시되어야 함 (무인 정산기 영수증 사진 첨부).</li>
+            <li><strong>하이패스/통행료:</strong> 도로공사 영수증 또는 법인카드 결제 영수증 첨부.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- ITEM: 소품 / 문구 / 비품 / 쿠팡 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="supplies" data-keywords="소품 소모품 비품 문구 쿠팡 인터넷구매 다이소 네이버페이 장비 렌탈 촬영용품">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-package text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">촬영 소품 · 비품 · 온라인 구매</h3>
+                <span class="text-[10px] font-semibold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-md border border-purple-100">소품/비품</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">쿠팡, 다이소, 문구류, 촬영 소품 구매 증빙</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="space-y-2">
+            <div class="bg-white p-3 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1 flex items-center gap-1">
+                <i class="ph-bold ph-shopping-cart text-purple-600"></i> 쿠팡/네이버 등 온라인 구매 증빙
+              </div>
+              <p class="text-[11px] text-slate-600">
+                반드시 <strong>[신용카드 매출전표]</strong>와 함께 품목명이 표시된 <strong>[거래명세서 or 결제상세내역]</strong> 2장을 모두 첨부해야 합니다. (단순 카드 결제금액만으로는 불인정)
+              </p>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border border-slate-200">
+              <div class="font-bold text-slate-800 mb-1">다이소 / 마트 등 현장 구매</div>
+              <p class="text-[11px] text-slate-600">
+                전체 품목 리스트가 나오는 영수증 첨부 (총액만 나온 간이 승인전표 X).
+              </p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ITEM: 장소 대관료 / 장비 렌탈 / 세금계산서 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="supplies" data-keywords="대관 대관료 스튜디오 장비 렌탈 렌트 세금계산서 외주 용역 계좌이체 사업자등록증">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-buildings text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">장소 대관 · 장비 렌탈 (세금계산서)</h3>
+                <span class="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">대관/렌탈</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">스튜디오 대관, 카메라·조명 렌탈, 계좌이체 처리</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 space-y-2">
+            <div class="font-bold text-emerald-900 flex items-center gap-1.5">
+              <i class="ph-bold ph-files"></i> 계좌이체/세금계산서 필요서류 3종
+            </div>
+            <div class="grid grid-cols-3 gap-1.5 text-center text-[11px]">
+              <div class="bg-white p-2 rounded-lg border border-emerald-100 font-medium text-slate-700">1. 전자세금계산서</div>
+              <div class="bg-white p-2 rounded-lg border border-emerald-100 font-medium text-slate-700">2. 사업자등록증 사본</div>
+              <div class="bg-white p-2 rounded-lg border border-emerald-100 font-medium text-slate-700">3. 통장 사본</div>
+            </div>
+          </div>
+
+          <div class="text-slate-600 space-y-1">
+            <p>• <strong>발행 기한:</strong> 공급일이 속한 달의 익월 10일까지 발행 완료 필수.</p>
+            <p>• <strong>주의사항:</strong> 계약서 또는 견적서/거래명세서가 사전에 결재 완료되어야 입금 처리가 가능합니다.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ITEM: 증빙서류 기준 및 한도 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="evidence" data-keywords="간이영수증 영수증 한도 3만원 법인카드 개인카드 현금영수증 지출증빙 지출결의서">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-file-text text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">증빙 유형별 인정 기준 & 한도</h3>
+                <span class="text-[10px] font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">증빙규정</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">간이영수증 3만원 제한, 법카, 현금영수증 지출증빙</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="space-y-2">
+            <!-- 법인카드 -->
+            <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-start gap-2">
+              <span class="badge-success text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0 mt-0.5">최우선</span>
+              <div>
+                <strong class="text-slate-800">법인카드 (신용/체크)</strong>
+                <p class="text-[11px] text-slate-500">원칙적으로 모든 경비는 법인카드로 결제해야 합니다. 영수증 원본(또는 전자영수증) 첨부.</p>
+              </div>
+            </div>
+
+            <!-- 현금영수증 -->
+            <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-start gap-2">
+              <span class="badge-info text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0 mt-0.5">인정</span>
+              <div>
+                <strong class="text-slate-800">현금영수증 (지출증빙용 필수)</strong>
+                <p class="text-[11px] text-slate-500"><span class="text-red-600 font-semibold">소득공제용(개인 핸드폰번호) 불가!</span> 반드시 사업자등록번호로 발급받은 '지출증빙'이어야 정산 가능.</p>
+              </div>
+            </div>
+
+            <!-- 간이영수증 -->
+            <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-start gap-2">
+              <span class="badge-alert text-[10px] font-bold px-1.5 py-0.5 rounded shrink-0 mt-0.5">주의</span>
+              <div>
+                <strong class="text-slate-800">간이영수증 (수기 영수증)</strong>
+                <p class="text-[11px] text-slate-500"><strong>건당 30,000원 이하</strong>만 인정됩니다. 3만원 초과 시 가산세 2% 부과 및 회계상 비용 불인정.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ITEM: FAQ 1 - 영수증 분실 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="faq" data-keywords="분실 영수증분실 잃어버렸 사유서 카드내역 카드사 재발급">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-question text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">Q. 영수증을 잃어버렸을 때는 어떻게 하나요?</h3>
+                <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100">FAQ</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">영수증 분실 사유서 작성법 및 카드 승인내역 대체</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <div class="text-slate-600 space-y-2">
+            <p><strong>1. 법인카드인 경우:</strong><br>
+            카드사 홈페이지나 앱에서 [이용내역 매출전표]를 다운로드하여 첨부하면 실물 영수증을 대체할 수 있습니다.</p>
+            
+            <p><strong>2. 현금/간이영수증 분실 시:</strong><br>
+            원칙적으로 비용 처리가 불가능합니다. 단, 부득이한 경우 팀장 승인이 포함된 <strong>[영수증 분실사유서]</strong>를 작성하여 회계팀 승인을 받아야 합니다.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- ITEM: FAQ 2 - 개인카드 사용 건 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition" data-category="faq" data-keywords="개인카드 사비 정산 본인카드 카드없을때">
+        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-credit-card text-xl"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-slate-900">Q. 긴급해서 개인 카드로 결제했는데 정산되나요?</h3>
+                <span class="text-[10px] font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-100">FAQ</span>
+              </div>
+              <p class="text-xs text-slate-500 mt-1">개인 경비 청구(사비 정산) 절차 및 계좌 환급</p>
+            </div>
+          </div>
+          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
+        </div>
+
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+          <p class="text-slate-600 leading-relaxed">
+            법인카드 소지자의 부재 또는 긴급한 촬영 현장 상황인 경우에 한해 <strong>개인경비 청구(지출결의서)</strong>가 가능합니다.<br>
+            - <strong>첨부서류:</strong> 개인카드 매출전표 + 품목 확인 명세서 + 사유 기재<br>
+            - 전표 승인 후 급여 계좌 또는 등록된 본인 계좌로 실비 입금됩니다.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- 4. 담당자 문의 & 빠른 지원 카드 -->
+    <section class="bg-slate-100 rounded-2xl p-4 border border-slate-200/80 text-xs space-y-2 mt-6">
+      <div class="font-bold text-slate-800 flex items-center gap-1.5">
+        <i class="ph-fill ph-headset text-blue-600 text-base"></i> 전표/정산 관련 긴급 문의
+      </div>
+      <p class="text-slate-500">규정이 헷갈리거나 시스템 오류가 발생하면 즉시 제작회계팀으로 문의 바랍니다.</p>
+      <div class="pt-2 flex gap-2">
+        <a href="tel:02-1234-5678" class="flex-1 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-sm transition">
+          <i class="ph-bold ph-phone text-blue-600"></i> 회계팀 전화
+        </a>
+        <a href="mailto:finance@company.com" class="flex-1 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-sm transition">
+          <i class="ph-bold ph-envelope-simple text-blue-600"></i> 메일 문의
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- [하단 모바일 바텀 네비게이션] -->
+  <nav class="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200">
+    <div class="max-w-md mx-auto grid grid-cols-4 py-2 px-2">
+      <button class="nav-item active-nav flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-600 transition" data-nav="all">
+        <i class="ph-bold ph-house text-xl"></i>
+        <span class="text-[10px]">전체</span>
+      </button>
+      <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-600 transition" data-nav="meal">
+        <i class="ph-bold ph-fork-knife text-xl"></i>
+        <span class="text-[10px]">식대/간식</span>
+      </button>
+      <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-600 transition" data-nav="traffic">
+        <i class="ph-bold ph-taxi text-xl"></i>
+        <span class="text-[10px]">교통/택시</span>
+      </button>
+      <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-600 transition" data-nav="evidence">
+        <i class="ph-bold ph-shield-check text-xl"></i>
+        <span class="text-[10px]">증빙/FAQ</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- [간단한 인터랙션 스크립트] -->
+  <script>
+    // 1. 아코디언 토글
+    document.querySelectorAll('.toggle-card').forEach(header => {
+      header.addEventListener('click', () => {
+        const article = header.closest('.guide-item');
+        const content = article.querySelector('.card-content');
+        const arrow = header.querySelector('.card-arrow');
+        
+        const isHidden = content.classList.contains('hidden');
+        if (isHidden) {
+          content.classList.remove('hidden');
+          arrow.classList.add('rotate-180');
+        } else {
+          content.classList.add('hidden');
+          arrow.classList.remove('rotate-180');
+        }
+      });
+    });
+
+    // 2. 카테고리 필터링 (칩 & 하단 탭 연동)
+    const chips = document.querySelectorAll('.filter-chip');
+    const navItems = document.querySelectorAll('.nav-item');
+    const guideItems = document.querySelectorAll('.guide-item');
+    const noResults = document.getElementById('noResults');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+    let currentCategory = 'all';
+
+    function applyFilter() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      guideItems.forEach(item => {
+        const itemCategory = item.getAttribute('data-category');
+        const keywords = (item.getAttribute('data-keywords') + ' ' + item.innerText).toLowerCase();
+        
+        // 카테고리 조건
+        let categoryMatch = false;
+        if (currentCategory === 'all') {
+          categoryMatch = true;
+        } else if (currentCategory === 'evidence') {
+          // 증빙/FAQ 탭은 evidence 또는 faq 둘 다 보여줌
+          categoryMatch = (itemCategory === 'evidence' || itemCategory === 'faq');
+        } else {
+          categoryMatch = (itemCategory === currentCategory);
+        }
+
+        // 검색어 조건
+        const queryMatch = query === '' || keywords.includes(query);
+
+        if (categoryMatch && queryMatch) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // 결과 없을 때
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+
+    // 칩 클릭 이벤트
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active-chip'));
+        chip.classList.add('active-chip');
+        currentCategory = chip.getAttribute('data-category');
+
+        // 바텀 탭 동기화
+        navItems.forEach(nav => {
+          if (nav.getAttribute('data-nav') === currentCategory) {
+            nav.classList.add('active-nav');
+          } else {
+            nav.classList.remove('active-nav');
+          }
+        });
+
+        applyFilter();
+      });
+    });
+
+    // 바텀 탭 클릭 이벤트
+    navItems.forEach(nav => {
+      nav.addEventListener('click', () => {
+        navItems.forEach(n => n.classList.remove('active-nav'));
+        nav.classList.add('active-nav');
+        currentCategory = nav.getAttribute('data-nav');
+
+        // 상단 칩 동기화
+        chips.forEach(chip => {
+          if (chip.getAttribute('data-category') === currentCategory) {
+            chip.classList.add('active-chip');
+            chip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            chip.classList.remove('active-chip');
+          }
+        });
+
+        applyFilter();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // 검색 입력 이벤트
+    searchInput.addEventListener('input', (e) => {
+      if (e.target.value.length > 0) {
+        clearSearchBtn.classList.remove('hidden');
+      } else {
+        clearSearchBtn.classList.add('hidden');
+      }
+      applyFilter();
+    });
+
+    // 검색어 초기화 버튼
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.classList.add('hidden');
+      applyFilter();
+      searchInput.focus();
+    });
+  </script>
+</body>
+</html>
