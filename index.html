@@ -34,7 +34,7 @@
     body {
       font-family: 'Pretendard', sans-serif;
       -webkit-tap-highlight-color: transparent;
-      padding-bottom: env(safe-area-inset-bottom, 80px);
+      padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 110px) !important;
     }
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
@@ -72,7 +72,7 @@
         <div class="flex items-center gap-1.5">
           <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
             <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-            v1.0.3
+            v1.0.4
           </span>
           <button id="manualRefreshBtn" title="최신 규정 새로고침" class="p-1 rounded-full text-slate-400 hover:text-blue-900 active:rotate-180 transition-transform">
             <i class="ph-bold ph-arrows-clockwise text-sm"></i>
@@ -132,20 +132,23 @@
     </div>
   </header>
 
-  <!-- [본문 메인 컨테이너] -->
-  <main class="max-w-md mx-auto px-4 py-3 space-y-3.5">
+  <!-- [본문 메인 컨테이너] (하단 네비게이션 바에 가려지지 않도록 pb-36 적용) -->
+  <main class="max-w-md mx-auto px-4 pt-3 pb-36 space-y-3.5">
 
-    <!-- 📌 기본 전제 3원칙 (적격증빙 핵심 가이드 - 항상 노출) -->
-    <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl p-4 text-white shadow-sm space-y-2.5">
-      <div class="flex items-center justify-between">
+    <!-- 📌 기본 전제 3원칙 (적격증빙 핵심 가이드) -->
+    <section id="basicPrinciplesSection" class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl p-4 text-white shadow-sm space-y-2.5">
+      <div id="togglePrinciplesBtn" class="flex items-center justify-between cursor-pointer select-none">
         <div class="flex items-center gap-2">
           <i class="ph-fill ph-shield-check text-amber-400 text-lg"></i>
           <h2 class="text-xs font-bold text-amber-300 tracking-wide">적격증빙 및 전표 기본 원칙</h2>
         </div>
-        <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-slate-200">필독</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded text-slate-200">필독</span>
+          <i id="principlesArrow" class="ph ph-caret-up text-slate-300 text-sm transition-transform"></i>
+        </div>
       </div>
       
-      <div class="space-y-2 text-xs text-slate-200">
+      <div id="principlesContent" class="space-y-2 text-xs text-slate-200">
         <div class="flex items-start gap-2 bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
           <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">✓</span>
           <div>
@@ -851,7 +854,7 @@
       });
     });
 
-    // 6. 아코디언 토글
+    // 6. 아코디언 토글 (하단 네비게이션 바에 가려지지 않도록 스크롤 보정)
     document.querySelectorAll('.toggle-card').forEach(header => {
       header.addEventListener('click', () => {
         const article = header.closest('.guide-item');
@@ -862,12 +865,38 @@
         if (isHidden) {
           content.classList.remove('hidden');
           arrow.classList.add('rotate-180');
+          // 카드가 화면 하단 바에 가려지지 않도록 부드럽게 시야 확보
+          setTimeout(() => {
+            const rect = article.getBoundingClientRect();
+            const bottomNavHeight = 90;
+            if (rect.bottom > window.innerHeight - bottomNavHeight) {
+              article.scrollIntoView({ behavior: 'smooth', block: 'end' });
+            }
+          }, 80);
         } else {
           content.classList.add('hidden');
           arrow.classList.remove('rotate-180');
         }
       });
     });
+
+    // 기본 전제 3원칙 배너 접기/펼치기
+    const togglePrinciplesBtn = document.getElementById('togglePrinciplesBtn');
+    const principlesContent = document.getElementById('principlesContent');
+    const principlesArrow = document.getElementById('principlesArrow');
+
+    if (togglePrinciplesBtn) {
+      togglePrinciplesBtn.addEventListener('click', () => {
+        const isCollapsed = principlesContent.classList.contains('hidden');
+        if (isCollapsed) {
+          principlesContent.classList.remove('hidden');
+          principlesArrow.classList.add('rotate-180');
+        } else {
+          principlesContent.classList.add('hidden');
+          principlesArrow.classList.remove('rotate-180');
+        }
+      });
+    }
 
     // 7. 검색어 입력
     searchInput.addEventListener('input', (e) => {
@@ -918,7 +947,7 @@
     }
 
     // 9. 브라우저 캐시 무시 & 실시간 버전 자동 감지
-    const CURRENT_VERSION = '1.0.3';
+    const CURRENT_VERSION = '1.0.4';
     const updateBanner = document.getElementById('updateBanner');
     const applyUpdateBtn = document.getElementById('applyUpdateBtn');
     const manualRefreshBtn = document.getElementById('manualRefreshBtn');
