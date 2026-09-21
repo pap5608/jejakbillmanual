@@ -19,12 +19,6 @@
         extend: {
           fontFamily: {
             sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
-          },
-          colors: {
-            navy: {
-              800: '#1e293b',
-              900: '#0f172a',
-            }
           }
         }
       }
@@ -56,21 +50,6 @@
       color: #1e40af !important;
       font-weight: 700;
     }
-    .tag-law {
-      background-color: #f1f5f9;
-      color: #334155;
-      border: 1px solid #cbd5e1;
-    }
-    .tag-warn {
-      background-color: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-    .tag-req {
-      background-color: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-    }
   </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen">
@@ -85,12 +64,12 @@
           </div>
           <div>
             <h1 class="text-base font-bold text-slate-900 tracking-tight leading-tight">MBC 제작진 전표 실무 메뉴얼</h1>
-            <p class="text-[11px] text-slate-500 font-medium">법인세법 적격증빙 · 소득세법 원천징수 기준</p>
+            <p class="text-[11px] text-slate-500 font-medium">실무 증빙 기준 및 원천징수 가이드</p>
           </div>
         </div>
         <span class="inline-flex items-center gap-1 text-[10px] font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
           <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-          세법 개정판
+          실무 규정
         </span>
       </div>
 
@@ -100,7 +79,7 @@
         <input 
           type="text" 
           id="searchInput" 
-          placeholder="항목 검색 (예: 당근, 중고, 심야괴담회, 출연료, 조세조약, 접대비)"
+          placeholder="검색 (예: 자체영수증, 당근, 125,000, 기프티콘, 접대비)"
           class="w-full bg-slate-100 text-sm text-slate-800 placeholder-slate-400 pl-9 pr-9 py-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-800 focus:bg-white transition"
         />
         <button id="clearSearchBtn" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
@@ -109,7 +88,7 @@
       </div>
     </div>
 
-    <!-- 카테고리 필터 칩 (7대 핵심 항목 가로 스크롤) -->
+    <!-- 카테고리 필터 칩 (가로 스크롤) -->
     <div class="max-w-md mx-auto px-4 py-2 overflow-x-auto hide-scrollbar flex items-center gap-1.5 border-t border-slate-100 bg-white text-xs">
       <button class="filter-chip active-chip px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 whitespace-nowrap transition" data-category="all">
         전체 보기
@@ -121,7 +100,7 @@
         2. 출연료
       </button>
       <button class="filter-chip px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 whitespace-nowrap transition" data-category="prize">
-        3. 상품·상금
+        3. 상품·상금·쿠폰
       </button>
       <button class="filter-chip px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 whitespace-nowrap transition" data-category="overseas">
         4. 해외출장
@@ -129,173 +108,168 @@
       <button class="filter-chip px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 whitespace-nowrap transition" data-category="service">
         5. 용역거래
       </button>
-      <button class="filter-chip px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 whitespace-nowrap transition" data-category="footage">
-        6. 해외영상
-      </button>
       <button class="filter-chip px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 whitespace-nowrap transition" data-category="gift">
-        7. 선물·접대
+        6. 선물·접대비
       </button>
     </div>
   </header>
 
   <!-- [본문 메인 컨테이너] -->
-  <main class="max-w-md mx-auto px-4 py-3 space-y-4">
+  <main class="max-w-md mx-auto px-4 py-3 space-y-3.5">
 
-    <!-- ⚠️ 적격증빙 핵심 원칙 배너 (법인세법 제116조) -->
-    <div class="bg-gradient-to-r from-slate-900 to-blue-950 rounded-2xl p-4 text-white shadow-sm">
-      <div class="flex items-center gap-2 mb-1.5">
-        <i class="ph-fill ph-scales text-amber-400 text-lg"></i>
-        <span class="text-xs font-bold text-amber-300">법인세법 제116조 (적격증빙 수취 의무)</span>
+    <!-- 📌 기본 전제 3원칙 카드 배너 -->
+    <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-2xl p-4 text-white shadow-sm space-y-2.5">
+      <div class="flex items-center gap-2">
+        <i class="ph-fill ph-shield-check text-amber-400 text-lg"></i>
+        <h2 class="text-xs font-bold text-amber-300 tracking-wide">전표 처리 기본 원칙 3가지</h2>
       </div>
-      <p class="text-xs text-slate-200 leading-relaxed">
-        건당 <strong>30,000원 초과</strong> 거래는 반드시 <strong>4대 적격증빙(신용카드, 세금계산서, 계산서, 현금영수증-지출증빙)</strong>을 수취해야 하며, 미수취 시 <strong>증빙불비가산세(2%)</strong>가 부과됩니다.
-      </p>
+      
+      <div class="space-y-2 text-xs text-slate-200">
+        <div class="flex items-start gap-2 bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
+          <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">1</span>
+          <div>
+            <strong class="text-white">적격증빙의 종류 (5종)</strong>
+            <p class="text-[11px] text-slate-300 mt-0.5">카드매출전표, (세금)계산서, 현금영수증, 3만원 이하 간이영수증, 원천징수 영수증</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2 bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
+          <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">2</span>
+          <div>
+            <strong class="text-white">법인카드 우선 원칙</strong>
+            <p class="text-[11px] text-slate-300 mt-0.5">카드 결제 시 법인카드 사용이 원칙. 부득이한 사유로 불가한 경우에 한해 <span class="text-amber-300 font-semibold">[사유서 작성]</span> 시 개인카드 사용 가능</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2 bg-white/10 p-2.5 rounded-xl backdrop-blur-sm">
+          <span class="w-5 h-5 rounded-full bg-amber-400 text-slate-900 font-bold text-[11px] flex items-center justify-center shrink-0 mt-0.5">3</span>
+          <div>
+            <strong class="text-white">적격증빙 불가 시: 자체영수증 필수</strong>
+            <p class="text-[11px] text-slate-300 mt-0.5">어떠한 적격증빙도 받을 수 없는 상황이라면 반드시 <span class="text-amber-300 font-semibold">[자체영수증(사내 양식)]</span>이라도 수취·작성해야 함</p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 검색 결과 없음 알림 -->
     <div id="noResults" class="hidden text-center py-12">
       <i class="ph ph-magnifying-glass text-4xl text-slate-300 mb-2"></i>
-      <p class="text-sm font-medium text-slate-600">일치하는 전표 규정이 없습니다.</p>
-      <p class="text-xs text-slate-400 mt-1">키워드를 바꿔 검색하거나 전체보기를 선택해 보세요.</p>
+      <p class="text-sm font-medium text-slate-600">일치하는 항목이 없습니다.</p>
+      <p class="text-xs text-slate-400 mt-1">다른 검색어를 입력해 보세요.</p>
     </div>
 
-    <!-- 7대 항목 카드 리스트 -->
-    <div id="itemsContainer" class="space-y-3.5">
+    <!-- 항목 리스트 -->
+    <div id="itemsContainer" class="space-y-3">
 
       <!-- ================= 1. 소품(물건) 구매 ================= -->
-      
+
       <!-- 1-1. 일반 상점 구매 -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="props" data-keywords="소품 물건 일반상점 마트 다이소 문구 쿠팡 스마트스토어 온라인몰 적격증빙 법인카드 품목명세서 거래명세서">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="props" data-keywords="소품 물건 구매 1-1 일반상점 마트 문구 다이소 온라인몰 쿠팡 카드 현금영수증">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
-              <i class="ph-fill ph-shopping-cart text-xl"></i>
+            <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
+              <i class="ph-fill ph-shopping-bag text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-[10px] font-bold text-blue-800 bg-blue-50 px-1.5 py-0.5 rounded">1-1</span>
-                <h3 class="text-sm font-bold text-slate-900">소품 구매 : 일반 상점 및 온라인몰</h3>
+                <h3 class="text-sm font-bold text-slate-900">소품 구매 : 일반 상점 구매</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">마트, 문구점, 다이소, 쿠팡, 네이버쇼핑 등</p>
+              <p class="text-xs text-slate-500 mt-1">마트, 문구점, 다이소, 일반 오프라인 및 온라인 상점</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="bg-blue-50/70 p-3 rounded-xl border border-blue-200 space-y-1.5">
-            <div class="font-bold text-blue-900 flex items-center gap-1">
-              <i class="ph-bold ph-check-square"></i> 필수 증빙 서류 2종 세트
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
+          <div class="bg-blue-50 p-3 rounded-xl border border-blue-200 text-blue-950 space-y-1">
+            <div class="font-bold flex items-center gap-1">
+              <i class="ph-bold ph-check-circle text-blue-700"></i> 필요 증빙 서류
             </div>
-            <p class="text-[11px] text-slate-700">1. <strong>신용카드 매출전표</strong> (법인카드 결제 원본/전자영수증)</p>
-            <p class="text-[11px] text-slate-700">2. <strong>상세 거래명세서</strong> (구입 품목 및 수량이 적힌 주문상세내역)</p>
+            <p class="text-xs font-semibold">• <strong>신용카드 매출전표</strong> (법인카드 우선, 불가 시 개인카드+사유서)</p>
+            <p class="text-xs font-semibold">• <strong>현금영수증</strong> (지출증빙용 필수)</p>
           </div>
-
-          <div class="space-y-1">
-            <div class="font-bold text-slate-800 flex items-center gap-1">
-              <i class="ph-bold ph-warning text-amber-600"></i> 법인세법 주의사항
-            </div>
-            <ul class="list-disc list-inside text-slate-600 space-y-1 pl-1">
-              <li><strong class="text-slate-800">쿠팡/온라인몰:</strong> 총 결제금액만 나온 카드 영수증 1장만 제출 시 <strong>비용 반려</strong>됩니다. 반드시 마이페이지에서 [주문상세내역(품목명 표시)]을 함께 캡처해 첨부하세요.</li>
-              <li>현금 결제 시 반드시 <strong>사업자등록번호로 지출증빙용 현금영수증</strong>을 발행받아야 합니다 (개인 소득공제용 불가).</li>
-            </ul>
-          </div>
-
-          <div class="p-2.5 bg-slate-100 rounded-lg text-[11px] border border-slate-200">
-            <span class="font-bold text-slate-700">✍️ 적요 기재 예시:</span><br>
-            <span class="font-mono text-slate-800">[소품구매] 3화 세트장 거실 소품 구매(시계, 쿠션 외 3종) / 쿠팡</span>
-          </div>
+          <p class="text-[11px] text-slate-500">※ 온라인몰(쿠팡 등) 구매 시 품목 내역이 확인되는 상세 주문내역서를 함께 구비해야 합니다.</p>
         </div>
       </article>
 
-      <!-- 1-2. 전통시장 현금 구매 -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="props" data-keywords="소품 전통시장 시장 현금 노점 간이영수증 3만원 초과 가산세 증빙불비 계좌이체 영수증미발급">
+      <!-- 1-2. 노점 등 증빙 발급 불가 경우 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="props" data-keywords="소품 노점 전통시장 현금영수증불가 카드불가 자체영수증 사내양식 3만원이하 3만원초과 상세작성">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-storefront text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-1.5 py-0.5 rounded">1-2</span>
-                <h3 class="text-sm font-bold text-slate-900">소품 구매 : 전통시장 (현금 구매)</h3>
+                <h3 class="text-sm font-bold text-slate-900">소품 구매 : 노점 등 증빙 불가처</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">시장 노점, 카드/현금영수증 불가 현금 거래 기준</p>
+              <p class="text-xs text-slate-500 mt-1">카드·현금영수증을 아예 발급받을 수 없는 노점/시장</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 space-y-1.5">
-            <div class="font-bold text-amber-900 flex items-center gap-1">
-              <i class="ph-bold ph-scales"></i> 법인세법 간이영수증 3만원 한도 원칙
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
+          <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 text-amber-950 space-y-2">
+            <div class="font-bold flex items-center gap-1">
+              <i class="ph-bold ph-file-text text-amber-700"></i> 필요 증빙 : <strong>자체 영수증 (사내 양식)</strong>
             </div>
-            <p class="text-[11px] text-amber-800 leading-relaxed">
-              • <strong>30,000원 이하:</strong> 수기 간이영수증(상호, 사업자번호, 직인 필수) 인정<br>
-              • <strong>30,000원 초과:</strong> 적격증빙 미수취로 <strong>증빙불비가산세(2%)</strong> 발생 및 원칙적 지출 불가
-            </p>
+            <ul class="text-[11px] space-y-1.5">
+              <li class="flex items-start gap-1">
+                <span class="font-bold text-emerald-700 shrink-0">• 3만원 이하:</span>
+                <span>자체 영수증 구비 시 정산 무관</span>
+              </li>
+              <li class="flex items-start gap-1">
+                <span class="font-bold text-red-700 shrink-0">• 3만원 초과:</span>
+                <span>자체 영수증에 <strong>구입 품목, 사유, 일시, 금액 등 상세한 내용 필수 작성</strong></span>
+              </li>
+            </ul>
           </div>
-
-          <div class="space-y-1">
-            <div class="font-bold text-slate-800">📌 노점/무등록 상인 부득이한 현금 결제 시 필수 증빙</div>
-            <ol class="list-decimal list-inside text-slate-600 space-y-1 pl-1">
-              <li><strong>계좌이체증 (송금확인증):</strong> 판매자 실명 계좌 이체 필수 (단순 현금 지급 불가)</li>
-              <li><strong>판매자 확인서 or 간이 영수증:</strong> 품목, 금액, 판매자 연락처 기재</li>
-              <li><strong>실물 현장 사진:</strong> 시장 매대 및 구매 물품 사진 증빙 필수 첨부</li>
-            </ol>
-          </div>
+          <p class="text-[11px] text-slate-500">※ 가능한 계좌이체증(송금확인증)과 현장 물품 사진을 함께 첨부하는 것을 권장합니다.</p>
         </div>
       </article>
 
-      <!-- 1-3. 중고거래 (당근마켓 등) -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="props" data-keywords="소품 중고 중고거래 당근 당근마켓 번개장터 중고나라 개인간거래 비적격증빙 이체증 소명자료">
+      <!-- 1-3. 중고거래 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="props" data-keywords="소품 중고 중고거래 당근 당근마켓 번개장터 중고나라 자체영수증 기본정보 이름 휴대폰번호">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-orange-100 text-orange-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-arrows-clockwise text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-[10px] font-bold text-orange-800 bg-orange-50 px-1.5 py-0.5 rounded">1-3</span>
-                <h3 class="text-sm font-bold text-slate-900">소품 구매 : 중고거래 (당근마켓·번개장터)</h3>
+                <h3 class="text-sm font-bold text-slate-900">소품 구매 : 중고거래 (개인 간 거래)</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">단종 소품, 빈티지 의상 등 개인 간 거래 시 정산법</p>
+              <p class="text-xs text-slate-500 mt-1">당근마켓, 번개장터, 중고나라 등 개인 직거래</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="p-2.5 bg-red-50 text-red-900 rounded-xl border border-red-200">
-            <strong class="font-bold flex items-center gap-1">
-              <i class="ph-bold ph-warning-octagon"></i> 개인 간 거래 시 적격증빙 수취 불가 안내
-            </strong>
-            <p class="text-[11px] mt-1 text-red-800">
-              사업자가 아닌 개인과의 거래이므로 세금계산서/현금영수증 발급이 불가능합니다. 국세청 세무조사 시 소명할 수 있는 <strong>객관적 입증자료 4종</strong>을 필히 구비해야 합니다.
-            </p>
-          </div>
-
-          <div class="space-y-1.5">
-            <div class="font-bold text-slate-800">📋 필수 제출 증빙 4종 세트</div>
-            <div class="grid grid-cols-2 gap-1.5 text-center text-[11px]">
-              <div class="bg-white p-2 rounded-lg border border-slate-200 font-medium">1. 계좌이체 확인증<br><span class="text-[10px] text-slate-400">(판매자 명의 일치)</span></div>
-              <div class="bg-white p-2 rounded-lg border border-slate-200 font-medium">2. 중고 게시글 캡처<br><span class="text-[10px] text-slate-400">(금액·물품명 확인)</span></div>
-              <div class="bg-white p-2 rounded-lg border border-slate-200 font-medium">3. 채팅 거래 대화내역<br><span class="text-[10px] text-slate-400">(약속 및 거래 증빙)</span></div>
-              <div class="bg-white p-2 rounded-lg border border-slate-200 font-medium">4. 물품 수령 사진<br><span class="text-[10px] text-slate-400">(실물 촬영 확인)</span></div>
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
+          <div class="bg-orange-50 p-3 rounded-xl border border-orange-200 text-orange-950 space-y-2">
+            <div class="font-bold flex items-center gap-1">
+              <i class="ph-bold ph-identification-card text-orange-700"></i> 필요 증빙 : <strong>자체 영수증</strong>
+            </div>
+            <div class="bg-white p-2.5 rounded-lg border border-orange-200/60 text-[11px]">
+              <strong class="text-red-700 underline">★ 필수 기재 사항:</strong><br>
+              거래상대방의 <strong>기본 정보 (이름, 휴대폰번호)</strong>를 자체 영수증에 반드시 기재해야 합니다.
             </div>
           </div>
-          <p class="text-[11px] text-slate-500">※ 판매자가 사업자(중고상점)인 경우에는 반드시 계좌이체 후 세금계산서나 현금영수증을 수취해야 합니다.</p>
+          <p class="text-[11px] text-slate-500">※ 거래 사실 증빙을 위해 계좌이체 내역, 채팅 대화 캡처, 물품 사진을 함께 첨부하세요.</p>
         </div>
       </article>
 
       <!-- ================= 2. 출연료 ================= -->
 
-      <!-- 2-1. 연예인 출연료 (소속사 vs 개인) -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 연예인 배우 가수 게스트 소속사 기획사 엔터 세금계산서 개인 3.3% 사업소득 소득세법 원천징수">
+      <!-- 2-1. 연예인 출연료 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 2-1 연예인 배우 가수 게스트 소속사 세금계산서 개인 신분증사본 사업소득 원천징수">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-star text-xl"></i>
             </div>
             <div>
@@ -303,90 +277,93 @@
                 <span class="text-[10px] font-bold text-purple-800 bg-purple-50 px-1.5 py-0.5 rounded">2-1</span>
                 <h3 class="text-sm font-bold text-slate-900">출연료 : 연예인 (소속사 vs 개인)</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">기획사 전자세금계산서 / 1인 기획사·개인 3.3% 원천징수</p>
+              <p class="text-xs text-slate-500 mt-1">기획사 계약 세금계산서 / 개인 직접 계약 시</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <!-- 2-1-1 소속사 -->
-          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
-              2-1-1. 소속사(기획사 법인/개인사업자) 계약 시
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <div class="font-bold text-purple-900 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-purple-600"></span>
+              2-1-1. 소속사(기획사) 계약 건
             </div>
-            <p class="text-[11px] text-slate-600">소속사가 <strong>전자세금계산서</strong>를 발행합니다 (출연료 공급가액 + 부가세 10%).</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-2 rounded border border-slate-200/60">
-              <strong>필요 서류:</strong> ① 전자세금계산서 ② 소속사 사업자등록증 사본 ③ 소속사 법인통장 사본 ④ 출연계약서
-            </div>
+            <p class="text-[11px] text-slate-700">필요 증빙: <strong>세금계산서</strong> (사업자등록증, 통장사본 첨부)</p>
           </div>
 
-          <!-- 2-1-2 개인 -->
-          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-              2-1-2. 무소속 / 개인 자격 계약 시
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <div class="font-bold text-blue-900 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+              2-1-2. 개인 직접 계약 건
             </div>
-            <p class="text-[11px] text-slate-600">소득세법상 <strong>사업소득 원천징수 3.3%</strong>(사업소득세 3% + 지방소득세 0.3%) 차감 후 송금합니다.</p>
-            <div class="text-[11px] text-slate-700 bg-slate-50 p-2 rounded border border-slate-200/60">
-              <strong>필요 서류:</strong> ① 출연자 신분증 사본 ② 본인 명의 통장 사본 ③ 출연계약서 (개인정보 수집동의 포함)
-            </div>
+            <p class="text-[11px] text-slate-700">필요 증빙: <strong>신분증 사본</strong> (사업소득 원천징수 3.3% 대상, 통장사본)</p>
           </div>
         </div>
       </article>
 
-      <!-- 2-2. 일반인 출연료 (방청객, 사연자, 전문가) -->
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 일반인 방청객 사연자 인터뷰 전문가 기타소득 8.8% 과세최저한 5만원 12만5천원 소득세법 제84조">
+      <!-- 2-2. 일반인 출연료 -->
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="cast" data-keywords="출연료 2-2 일반인 방청객 사연자 인터뷰 125,000 125000 12만5천원 이상 미만 신분증사본 기본정보 이름 휴대폰번호 기타소득">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-users text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-[10px] font-bold text-indigo-800 bg-indigo-50 px-1.5 py-0.5 rounded">2-2</span>
-                <h3 class="text-sm font-bold text-slate-900">출연료 : 일반인 (방청객·사연자·인터뷰)</h3>
+                <h3 class="text-sm font-bold text-slate-900">출연료 : 일반인 (방청객·사연자 등)</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">소득세법 제84조 과세최저한 및 기타소득 세금 계산</p>
+              <p class="text-xs text-slate-500 mt-1">125,000원 기준 원천징수 대상 여부 및 서류 구분</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="bg-indigo-50/70 p-3 rounded-xl border border-indigo-200 space-y-1.5">
-            <div class="font-bold text-indigo-900 flex items-center gap-1">
-              <i class="ph-bold ph-calculator"></i> 소득세법상 일반인 원천징수 기준
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
+          <!-- 125,000원 이상 -->
+          <div class="bg-indigo-50/80 p-3 rounded-xl border border-indigo-200 space-y-1">
+            <div class="font-bold text-indigo-950 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-indigo-700"></span>
+              2-2-1. 일반인 125,000원 이상 (필수 원천징수)
             </div>
-            <ul class="text-[11px] text-indigo-950 space-y-1">
-              <li>• <strong>일시적·우발적 출연 (사연자, 인터뷰, 방청객):</strong> <strong>기타소득</strong> 분류</li>
-              <li>• <strong>필요경비 60% 인정:</strong> 지급액의 40%만 소득으로 봄</li>
-              <li>• <strong class="text-red-700">과세최저한 (소득세법 제84조):</strong> 건당 <strong>지급액 125,000원 이하</strong>(기타소득금액 50,000원 이하)는 <strong>세금 0원 (비과세 원천징수 없음)</strong>, 전액 지급!</li>
-              <li>• <strong>125,000원 초과 시:</strong> 총 지급액의 <strong>8.8%</strong> (기타소득세 8% + 지방소득세 0.8%) 원천징수 후 송금.</li>
-            </ul>
+            <p class="text-[11px] text-slate-700 leading-snug">
+              필요 증빙: <strong>신분증 사본 필수</strong><br>
+              (기타소득 원천징수 대상이므로 신분증 사본을 반드시 수취해야 합니다)
+            </p>
           </div>
 
-          <div class="text-slate-600 space-y-1">
-            <strong>필수 첨부:</strong> 신분증 사본, 본인 통장 사본, 출연 확인서/수령증 (서명 필수).
+          <!-- 125,000원 미만 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
+            <div class="font-bold text-slate-900 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+              2-2-2. 일반인 125,000원 미만 (과세최저한)
+            </div>
+            <div class="text-[11px] text-slate-700 space-y-1">
+              <p>• <strong>가능하면 신분증 사본</strong> (기타소득 원천징수) 수취 권장</p>
+              <p>• <strong>불가능할 경우:</strong> <strong>기본 정보 (이름, 휴대폰번호)</strong> 정도 구비</p>
+              <p class="text-[10px] text-slate-500 bg-slate-50 p-2 rounded border border-slate-200">
+                💡 125,000원 미만 건은 세법상 필수 원천징수 대상이 아니므로, 신분증 수취가 어려울 시 기본 정보로 갈음 가능합니다.
+              </p>
+            </div>
           </div>
         </div>
       </article>
 
-      <!-- ================= 3. 상품 / 상금 / 기프티콘 ================= -->
+      <!-- ================= 3. 개인에게 지급하는 상품 ================= -->
 
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="prize" data-keywords="상품 상금 기프티콘 상품권 불특정다수 특정다수 공모전 심야괴담회 필요경비80% 제세공과금 4.4% 수령확인증 대장">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="prize" data-keywords="상품 3 상금 기프티콘 상품권 개인 상품권수불부 유가증권 불특정다수 특정다수 심야괴담회 신분증사본 접대비">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-gift text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-[10px] font-bold text-pink-800 bg-pink-50 px-1.5 py-0.5 rounded">3-1</span>
-                <h3 class="text-sm font-bold text-slate-900">상품·상금·기프티콘 (공모전/사연)</h3>
+                <span class="text-[10px] font-bold text-pink-800 bg-pink-50 px-1.5 py-0.5 rounded">3</span>
+                <h3 class="text-sm font-bold text-slate-900">개인에게 지급하는 상품·상금·기프티콘</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">심야괴담회 등 사연 공모, 퀴즈 상금, 모바일 쿠폰</p>
+              <p class="text-xs text-slate-500 mt-1">심야괴담회 등 공모전 상금, 물품, 모바일 상품권</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
@@ -394,29 +371,36 @@
 
         <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
           
-          <!-- 불특정다수 대회 (심야괴담회 등) -->
-          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 flex items-center gap-1">
-              <i class="ph-bold ph-trophy text-amber-500"></i> 불특정 다수 대상 대회/공모 (예: 심야괴담회 사연 공모)
-            </div>
-            <p class="text-[11px] text-slate-600 leading-relaxed">
-              소득세법 제21조 제1항 제1호(현상상금 등) 및 시행령 제87조에 따라 <strong>필요경비 80% 인정</strong> 대상입니다.
-            </p>
-            <div class="bg-slate-50 p-2 rounded border border-slate-200 text-[11px] text-slate-700 space-y-1">
-              <div>• <strong>제세공과금(원천징수율):</strong> 실효세율 <strong>4.4%</strong> (20% × 22%) 차감 후 지급</div>
-              <div>• <strong>과세최저한:</strong> 상금 <strong>250,000원 이하</strong>(기타소득금액 5만원 이하) 시 세금 없음</div>
-              <div>• <strong>필수서류:</strong> 수상 확인서, 신분증 사본, 통장 사본 (현물 상품 시 인수증 필수)</div>
-            </div>
+          <!-- 대회 구분 안내 -->
+          <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-200 text-[11px] text-amber-900">
+            <strong>📢 대회 유형별 기타소득 필요경비 차이:</strong><br>
+            • <strong>불특정 다수 대상 대회 (예: 심야괴담회 같은 사연 공모전 등):</strong> 필요경비 인정률 높음(80%)<br>
+            • <strong>특정 다수 대상 대회:</strong> 필요경비율 별도 적용 기준 확인 필요
           </div>
 
-          <!-- 기프티콘/상품권 -->
+          <!-- 3-1 물품 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <div class="font-bold text-slate-900">3-1. 물품 지급</div>
+            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙:</strong> 신분증 사본 (물품 가액만큼 기타소득 원천징수)</p>
+            <p class="text-[11px] text-slate-700">• <strong>물품 구매 시:</strong> 세금계산서, 카드 결제, 현금영수증 중 적격증빙</p>
+          </div>
+
+          <!-- 3-2 상금 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <div class="font-bold text-slate-900">3-2. 상금 (현금/계좌이체)</div>
+            <p class="text-[11px] text-slate-700">• <strong>수령자 증빙:</strong> <strong>신분증 사본</strong> (기타소득 원천징수 처리)</p>
+          </div>
+
+          <!-- 3-3 기프티콘 / 상품권 -->
           <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-900 flex items-center gap-1">
-              <i class="ph-bold ph-ticket text-pink-600"></i> 기프티콘 / 모바일 상품권 지급 시
+            <div class="font-bold text-slate-900">3-3. 기프티콘 (상품권)</div>
+            <p class="text-[11px] text-slate-700">• <strong>구매 시:</strong> 세금계산서, 카드 결제, 현금영수증 중 적격증빙</p>
+            <p class="text-[11px] text-slate-700">• <strong>지급 원칙:</strong> 상품권은 유가증권이므로 <strong>신분증 사본(물품 가액만큼 기타소득 원천징수)</strong>이 필수입니다.</p>
+            <div class="bg-red-50 p-2 rounded-lg border border-red-200 text-[11px] text-red-900 space-y-1">
+              <strong>⚠️ 부득이하게 신분증 정보를 받을 수 없는 경우:</strong><br>
+              원천징수가 불가능하므로 <strong>[접대비]</strong>로 처리해야 합니다.<br>
+              단, <strong>상품권 수불부 관리</strong>를 위해 <strong>이름과 휴대폰번호 등 최소한의 정보는 반드시 구비</strong>되어야 합니다.
             </div>
-            <p class="text-[11px] text-slate-600">
-              구매 영수증(법인카드) 외에 <strong>[상품권/모바일쿠폰 지급 관리대장]</strong>과 <strong>[수령인 목록(성명, 전화번호, 발송일시 내역)]</strong>이 증빙으로 반드시 첨부되어야 회계 감사에서 인정됩니다.
-            </p>
           </div>
 
         </div>
@@ -424,48 +408,40 @@
 
       <!-- ================= 4. 해외 출장 사용 건 ================= -->
 
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="overseas" data-keywords="해외출장 해외 출장 외화 환전 달러 유로 현지영수증 인보이스 환율 기준일 법인카드 invoice receipt">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="overseas" data-keywords="해외출장 4 해외 출장 카드 자체영수증 외화 현지영수증">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-airplane-tilt text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-[10px] font-bold text-teal-800 bg-teal-50 px-1.5 py-0.5 rounded">4</span>
-                <h3 class="text-sm font-bold text-slate-900">해외 출장 사용 건 (현지 영수증·환율)</h3>
+                <h3 class="text-sm font-bold text-slate-900">해외 출장 사용 건</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">해외 법인카드 결제, 현지 현금 지출, 환율 적용 기준</p>
+              <p class="text-xs text-slate-500 mt-1">해외 촬영 및 출장 경비 증빙 기준</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="space-y-2">
-            <!-- 법인카드 -->
-            <div class="bg-white p-3 rounded-xl border border-slate-200">
-              <div class="font-bold text-slate-800 mb-1">1. 해외 법인카드 결제</div>
-              <p class="text-[11px] text-slate-600">
-                카드사에서 최종 청구되는 <strong>원화(KRW) 청구금액</strong>으로 전표를 처리합니다. 현지 영수증 원본(Slip/Receipt)과 카드 청구내역서를 함께 첨부합니다.
-              </p>
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2 bg-slate-50/50">
+          <div class="bg-teal-50 p-3 rounded-xl border border-teal-200 text-teal-950 space-y-2">
+            <div class="font-bold flex items-center gap-1">
+              <i class="ph-bold ph-credit-card text-teal-700"></i> 결제 증빙 우선순위
             </div>
-
-            <!-- 현지 현금 사용 -->
-            <div class="bg-white p-3 rounded-xl border border-slate-200">
-              <div class="font-bold text-slate-800 mb-1">2. 현지 현금(달러/현지통화) 지출 시 환율 기준</div>
-              <ul class="text-[11px] text-slate-600 space-y-1">
-                <li>• <strong>환율 적용:</strong> 출장 전 <strong>환전 영수증 상의 실제 환전 환율</strong>을 적용합니다. (환전 영수증 분실 시 지출일자 서울외국환중개 매매기준율 적용)</li>
-                <li>• <strong>영수증 소명:</strong> 현지 영수증 뒷면에 <strong>한글로 [일시 / 사용처 / 사용목적 / 참석자]</strong>를 직접 수기 기재 후 서명하여 촬영 첨부합니다.</li>
-              </ul>
-            </div>
+            <ul class="text-[11px] space-y-1.5">
+              <li>• <strong>가능하면 카드 결제 우선:</strong> 해외 사용 가능 법인카드(부득이할 경우 개인카드+사유서) 매출전표</li>
+              <li>• <strong>부득이할 경우:</strong> 현지 지출 내역을 소명하는 <strong>자체 영수증 (사내 양식)</strong> 작성</li>
+            </ul>
           </div>
+          <p class="text-[11px] text-slate-500">※ 현지 영수증 원본(Receipt)이 있는 경우 뒷면에 한글로 일시, 사용처, 사용목적을 메모하여 첨부하세요.</p>
         </div>
       </article>
 
       <!-- ================= 5. 용역거래 ================= -->
 
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="service" data-keywords="용역거래 외주 용역 촬영스태프 음악 편집 기술용역 개인 사업자 해외법인 인보이스 계약서">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="service" data-keywords="용역거래 5 외주 개인 개인사업자 법인사업자 해외법인 인보이스 세금계산서 계산서 면세 신분증사본 사업소득 기타소득">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
             <div class="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-800 flex items-center justify-center shrink-0">
@@ -473,146 +449,84 @@
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-[10px] font-bold text-cyan-900 bg-cyan-50 px-1.5 py-0.5 rounded">5</span>
-                <h3 class="text-sm font-bold text-slate-900">용역거래 (개인 / 국내사업자 / 해외법인)</h3>
+                <span class="text-[10px] font-bold text-cyan-800 bg-cyan-50 px-1.5 py-0.5 rounded">5</span>
+                <h3 class="text-sm font-bold text-slate-900">용역거래 (개인 / 사업자 / 해외법인)</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">외주 제작, 촬영/조명/음향, CG/편집 등 기술 용역</p>
+              <p class="text-xs text-slate-500 mt-1">외주 제작, 스태프, 개인/법인사업자, 해외 인보이스</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="space-y-2">
-            <!-- 개인 프리랜서 -->
-            <div class="bg-white p-2.5 rounded-xl border border-slate-200">
-              <strong class="text-slate-800 text-xs">① 개인 프리랜서 용역</strong>
-              <p class="text-[11px] text-slate-600 mt-0.5">
-                • <strong>세무 처리:</strong> 사업소득세 <strong>3.3% 원천징수</strong><br>
-                • <strong>필수 서류:</strong> 용역계약서(과업내용 포함), 신분증 사본, 통장 사본
-              </p>
-            </div>
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
+          
+          <!-- 5-1 개인 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-slate-900 text-xs">5-1. 개인</strong>
+            <p class="text-[11px] text-slate-700">필요 증빙: <strong>신분증 사본</strong> (사업소득 3.3% 또는 기타소득 원천징수)</p>
+          </div>
 
-            <!-- 국내 사업자 -->
-            <div class="bg-white p-2.5 rounded-xl border border-slate-200">
-              <strong class="text-slate-800 text-xs">② 국내 사업자 (개인·법인)</strong>
-              <p class="text-[11px] text-slate-600 mt-0.5">
-                • <strong>세무 처리:</strong> 전자세금계산서 발행 (공급일 익월 10일까지)<br>
-                • <strong>필수 서류:</strong> 전자세금계산서, 사업자등록증 사본, 통장 사본, 견적서/계약서
-              </p>
-            </div>
-
-            <!-- 해외 법인 -->
-            <div class="bg-white p-2.5 rounded-xl border border-slate-200">
-              <strong class="text-slate-800 text-xs">③ 해외 법인 용역 (Foreign Vendor)</strong>
-              <p class="text-[11px] text-slate-600 mt-0.5">
-                • 인보이스(Invoice), Service Agreement, 외화송금확인서.<br>
-                • 국내원천소득 해당 여부에 따라 법인세 원천징수 필요 (회계팀 사전 검토 필수).
-              </p>
+          <!-- 5-2-1 개인사업자 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
+            <strong class="text-slate-900 text-xs">5-2-1. 개인사업자</strong>
+            <p class="text-[11px] text-slate-700">필요 증빙: <strong>(세금)계산서, 신분증 사본</strong></p>
+            <div class="p-2 bg-amber-50 rounded-lg border border-amber-200 text-[10px] text-amber-900 font-medium">
+              ⚠️ <strong>면세사업자 주의:</strong> 면세사업자일 경우 계산서를 받더라도 <strong>사업소득 원천징수</strong>를 별도로 진행합니다.
             </div>
           </div>
+
+          <!-- 5-2-2 법인사업자 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-slate-900 text-xs">5-2-2. 법인사업자</strong>
+            <p class="text-[11px] text-slate-700">필요 증빙: <strong>(세금)계산서</strong> (사업자등록증, 법인통장 사본 첨부)</p>
+          </div>
+
+          <!-- 5-3 해외법인 -->
+          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1">
+            <strong class="text-slate-900 text-xs">5-3. 해외법인</strong>
+            <p class="text-[11px] text-slate-700">필요 증빙: <strong>인보이스 (Invoice)</strong> (계약서, 송금확인서 첨부)</p>
+          </div>
+
         </div>
       </article>
 
-      <!-- ================= 6. 해외 영상사용료 ================= -->
+      <!-- ================= 6. 선물 (접대비) ================= -->
 
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="footage" data-keywords="해외영상사용료 해외영상 푸티지 음원 저작권 조세조약 거주자증명서 Certificate of Residence 제한세율 로열티 라이선스 원천징수">
+      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="gift" data-keywords="선물 6 접대비 위임전결규정 품의 카드 현금영수증 세금계산서 업무추진비">
         <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
           <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-violet-100 text-violet-700 flex items-center justify-center shrink-0">
-              <i class="ph-fill ph-video text-xl"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-[10px] font-bold text-violet-800 bg-violet-50 px-1.5 py-0.5 rounded">6</span>
-                <h3 class="text-sm font-bold text-slate-900">해외 영상사용료 (Footage · 조세조약)</h3>
-              </div>
-              <p class="text-xs text-slate-500 mt-1">해외 아카이브, 푸티지, 해외 음원 라이선스 계약</p>
-            </div>
-          </div>
-          <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
-        </div>
-
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
-          <div class="bg-violet-50 p-3 rounded-xl border border-violet-200 space-y-1.5">
-            <div class="font-bold text-violet-900 flex items-center gap-1">
-              <i class="ph-bold ph-globe-hemisphere-west"></i> 조세조약(Tax Treaty) 및 원천징수 의무
-            </div>
-            <p class="text-[11px] text-violet-900 leading-relaxed">
-              외국 법인/개인의 영상·저작물 사용료는 <strong>국내원천 사용료소득</strong>에 해당하여 대한민국 세무서에 세금을 원천징수하여 대납해야 합니다.
-            </p>
-          </div>
-
-          <div class="space-y-1.5">
-            <div class="font-bold text-slate-800">📋 필수 제출 서류 4종 (미제출 시 송금 불가)</div>
-            <ol class="list-decimal list-inside text-slate-600 space-y-1 pl-1">
-              <li><strong>라이선스 계약서 (License Agreement):</strong> 사용 범위/기간/금액 명시</li>
-              <li><strong>인보이스 (Invoice):</strong> 지급처 계좌정보(SWIFT code 등) 포함</li>
-              <li><strong class="text-red-700">해외 거주자증명서 (Certificate of Residence):</strong><br>
-                <span class="text-[11px] text-slate-500 pl-4 block">조세조약상 제한세율(미국 10~15% 등)을 적용받기 위해 상대국 과세당국이 발행한 원본 필수. 미제출 시 국내 기본세율 <strong>22%</strong> 원천징수 적용됨.</span>
-              </li>
-              <li><strong>비과세·면제신청서 (국세청 법정 서식)</strong></li>
-            </ol>
-          </div>
-        </div>
-      </article>
-
-      <!-- ================= 7. 선물 / 접대비 ================= -->
-
-      <article class="guide-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden" data-category="gift" data-keywords="선물 접대비 업무추진비 법인세법 적격증빙 청탁금지법 김영란법 3만원초과 개인카드불가 경조사비 화환">
-        <div class="p-4 cursor-pointer select-none toggle-card flex items-start justify-between gap-3">
-          <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
               <i class="ph-fill ph-hand-heart text-xl"></i>
             </div>
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
-                <span class="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded">7</span>
-                <h3 class="text-sm font-bold text-slate-900">선물 · 접대비 (업무추진비)</h3>
+                <span class="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded">6</span>
+                <h3 class="text-sm font-bold text-slate-900">선물 (접대비 규정)</h3>
               </div>
-              <p class="text-xs text-slate-500 mt-1">외부 관계자 선물, 미팅 식사, 청탁금지법 한도 준수</p>
+              <p class="text-xs text-slate-500 mt-1">외부 관계자 선물 및 접대비, 위임전결 품의 규정</p>
             </div>
           </div>
           <i class="ph ph-caret-down text-slate-400 text-lg transition-transform duration-200 card-arrow mt-1"></i>
         </div>
 
-        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-3 bg-slate-50/50">
+        <div class="card-content hidden px-4 pb-4 border-t border-slate-100 pt-3 text-xs space-y-2.5 bg-slate-50/50">
           
-          <!-- 법인세법 3만원 초과 적격증빙 강제 -->
-          <div class="bg-red-50 p-3 rounded-xl border border-red-200 text-red-900 space-y-1">
+          <div class="bg-emerald-50 p-3 rounded-xl border border-emerald-200 text-emerald-950 space-y-1.5">
             <div class="font-bold flex items-center gap-1">
-              <i class="ph-bold ph-shield-warning"></i> 법인세법상 접대비 적격증빙 강제 규정
+              <i class="ph-bold ph-receipt text-emerald-700"></i> 필요 증빙 서류
             </div>
-            <p class="text-[11px] leading-relaxed">
-              접대비는 건당 <strong>30,000원(경조사비는 200,000원) 초과 시 반드시 법인명의 신용카드, 세금계산서, 현금영수증(지출증빙)</strong>이어야만 손금 인정됩니다.<br>
-              <span class="font-bold text-red-700 underline">※ 개인 신용카드 사용 건은 전액 손금불산입(회사 비용 불인정) 처리됩니다!</span>
+            <p class="text-[11px]">• <strong>신용카드</strong> (법인카드 필수)</p>
+            <p class="text-[11px]">• <strong>현금영수증</strong> (지출증빙용)</p>
+            <p class="text-[11px]">• <strong>세금계산서</strong></p>
+          </div>
+
+          <div class="bg-red-50 p-3 rounded-xl border border-red-200 text-red-950 space-y-1">
+            <div class="font-bold flex items-center gap-1 text-red-800">
+              <i class="ph-bold ph-file-dashed"></i> 사전 품의 필수 (위임전결규정)
+            </div>
+            <p class="text-[11px] leading-snug">
+              선물 및 접대비 집행의 경우, <strong>사내 위임전결규정에 따른 사전 품의(결재)</strong>가 반드시 완료되어 있어야 전표 처리가 가능합니다.
             </p>
-          </div>
-
-          <!-- 청탁금지법(김영란법) 한도 기준 -->
-          <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-            <div class="font-bold text-slate-800 flex items-center gap-1">
-              <i class="ph-bold ph-scales text-emerald-600"></i> 청탁금지법 대상자(공직자, 언론인, 교직원) 한도
-            </div>
-            <div class="grid grid-cols-3 gap-1.5 text-center text-[11px]">
-              <div class="bg-slate-50 p-2 rounded border border-slate-200">
-                <span class="text-slate-500 block text-[10px]">식사/음료</span>
-                <strong class="text-slate-800">5만 원 이하</strong>
-              </div>
-              <div class="bg-slate-50 p-2 rounded border border-slate-200">
-                <span class="text-slate-500 block text-[10px]">선물 (일반)</span>
-                <strong class="text-slate-800">5만 원 이하</strong>
-              </div>
-              <div class="bg-slate-50 p-2 rounded border border-slate-200">
-                <span class="text-slate-500 block text-[10px]">농축수산물</span>
-                <strong class="text-slate-800">15만 원 이하</strong>
-              </div>
-            </div>
-          </div>
-
-          <div class="p-2.5 bg-slate-100 rounded-lg text-[11px] border border-slate-200">
-            <span class="font-bold text-slate-700">✍️ 전표 적요 필수 기재 사항:</span><br>
-            <span class="font-mono text-slate-800">[접대비] OOO 작가 인터뷰 미팅 식대 (동반: PD OOO / 외부: OOO 작가 외 1명)</span>
           </div>
 
         </div>
@@ -620,19 +534,17 @@
 
     </div>
 
-
-
   </main>
 
   <!-- [하단 모바일 네비게이션 바] -->
   <nav class="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200">
-    <div class="max-w-md mx-auto grid grid-cols-5 py-2 px-1">
+    <div class="max-w-md mx-auto grid grid-cols-6 py-2 px-1">
       <button class="nav-item active-nav flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-900 transition" data-nav="all">
         <i class="ph-bold ph-house text-lg"></i>
         <span class="text-[9px]">전체</span>
       </button>
       <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-900 transition" data-nav="props">
-        <i class="ph-bold ph-shopping-cart text-lg"></i>
+        <i class="ph-bold ph-shopping-bag text-lg"></i>
         <span class="text-[9px]">소품</span>
       </button>
       <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-900 transition" data-nav="cast">
@@ -641,7 +553,11 @@
       </button>
       <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-900 transition" data-nav="prize">
         <i class="ph-bold ph-gift text-lg"></i>
-        <span class="text-[9px]">상금</span>
+        <span class="text-[9px]">상품</span>
+      </button>
+      <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-900 transition" data-nav="service">
+        <i class="ph-bold ph-briefcase text-lg"></i>
+        <span class="text-[9px]">용역</span>
       </button>
       <button class="nav-item flex flex-col items-center gap-0.5 text-slate-400 hover:text-blue-900 transition" data-nav="gift">
         <i class="ph-bold ph-hand-heart text-lg"></i>
@@ -650,7 +566,7 @@
     </div>
   </nav>
 
-  <!-- [스크립트] -->
+  <!-- [간단한 인터랙션 스크립트] -->
   <script>
     // 1. 아코디언 토글
     document.querySelectorAll('.toggle-card').forEach(header => {
